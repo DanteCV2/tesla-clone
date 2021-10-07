@@ -1,4 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { selectCars } from "../../features/car/carSlice";
+import { useSelector } from "react-redux";
 import {
   BurgerNav,
   CloseWrapper,
@@ -10,8 +12,8 @@ import {
 } from "./Header.styles";
 
 function Header() {
-
-  const [burgerOpen, setburgerOpen] = useState(false)
+  const [burgerOpen, setburgerOpen] = useState(false);
+  const cars = useSelector(selectCars);
 
   return (
     <Container>
@@ -19,20 +21,30 @@ function Header() {
         <img src="/img/logo.svg" alt="" />
       </a>
       <Menu>
-        <a href="/">Model S</a>
-        <a href="/">Model 3</a>
-        <a href="/">Model X</a>
-        <a href="/">Model Y</a>
+        {cars &&
+          cars.map((car, index) => (
+            <a key={index} href="/">
+              {car}
+            </a>
+          ))}
       </Menu>
       <RightMenu>
         <a href="/">Shop</a>
         <a href="/">Tesla Account</a>
-        <CustomMenu onClick={()=>setburgerOpen(true)} />
+        <CustomMenu onClick={() => setburgerOpen(true)} />
       </RightMenu>
       <BurgerNav show={burgerOpen}>
         <CloseWrapper>
-          <CustomClose onClick={()=>setburgerOpen(false)} />
+          <CustomClose onClick={() => setburgerOpen(false)} />
         </CloseWrapper>
+        {cars &&
+          cars.map((car, index) => (
+            <li>
+              <a key={index} href="/">
+                {car}
+              </a>
+            </li>
+          ))}
         <li>
           <a href="#">Existing Inventory</a>
         </li>
