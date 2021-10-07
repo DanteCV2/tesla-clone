@@ -1,7 +1,18 @@
-import React from "react";
-import { Container, CustomMenu, Menu, RightMenu } from "./Header.styles";
+import React, {useState} from "react";
+import {
+  BurgerNav,
+  CloseWrapper,
+  Container,
+  CustomClose,
+  CustomMenu,
+  Menu,
+  RightMenu,
+} from "./Header.styles";
 
 function Header() {
+
+  const [burgerOpen, setburgerOpen] = useState(false)
+
   return (
     <Container>
       <a href="/">
@@ -16,8 +27,31 @@ function Header() {
       <RightMenu>
         <a href="/">Shop</a>
         <a href="/">Tesla Account</a>
+        <CustomMenu onClick={()=>setburgerOpen(true)} />
       </RightMenu>
-      <CustomMenu></CustomMenu>
+      <BurgerNav show={burgerOpen}>
+        <CloseWrapper>
+          <CustomClose onClick={()=>setburgerOpen(false)} />
+        </CloseWrapper>
+        <li>
+          <a href="#">Existing Inventory</a>
+        </li>
+        <li>
+          <a href="#">Used Inventory</a>
+        </li>
+        <li>
+          <a href="#">Trade-in</a>
+        </li>
+        <li>
+          <a href="#">Cybertruck</a>
+        </li>
+        <li>
+          <a href="#">Roadster</a>
+        </li>
+        <li>
+          <a href="#">Existing Inventory</a>
+        </li>
+      </BurgerNav>
     </Container>
   );
 }
